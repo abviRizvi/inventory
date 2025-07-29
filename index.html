@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple Inventory System</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+    h1 {
+        text-align: center;
+    }
+    .form-container {
+        max-width: 400px;
+        margin: 0 auto 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+    }
+    .form-container input {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0;
+        box-sizing: border-box;
+    }
+    button {
+        width: 100%;
+        padding: 10px;
+        background: #28a745;
+        color: #fff;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+    button:hover {
+        background: #218838;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+    th, td {
+        padding: 8px;
+        text-align: center;
+    }
+    th {
+        background-color: #f8f9fa;
+    }
+</style>
+</head>
+<body>
+
+<h1>Inventory System</h1>
+
+<div class="form-container">
+    <input type="text" id="itemName" placeholder="Item Name" required>
+    <input type="number" id="itemQty" placeholder="Quantity" required>
+    <input type="number" id="itemPrice" placeholder="Price" required>
+    <button onclick="addItem()">Add Item</button>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Item Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody id="inventoryTable">
+        <!-- Items will be added here -->
+    </tbody>
+</table>
+
+<script>
+let count = 0;
+
+function addItem() {
+    const name = document.getElementById('itemName').value.trim();
+    const qty = parseInt(document.getElementById('itemQty').value);
+    const price = parseFloat(document.getElementById('itemPrice').value);
+
+    if (name && qty > 0 && price > 0) {
+        count++;
+        const total = qty * price;
+
+        const table = document.getElementById('inventoryTable');
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${count}</td>
+            <td>${name}</td>
+            <td>${qty}</td>
+            <td>${price.toFixed(2)}</td>
+            <td>${total.toFixed(2)}</td>
+        `;
+        table.appendChild(row);
+
+        // Clear input fields
+        document.getElementById('itemName').value = '';
+        document.getElementById('itemQty').value = '';
+        document.getElementById('itemPrice').value = '';
+    } else {
+        alert('Please enter valid values!');
+    }
+}
+</script>
+
+</body>
+</html>
